@@ -1,0 +1,152 @@
+#include <String>
+
+
+	server
+	{
+		Player turn;
+		
+		spork()
+		Thread AI [] // # AIs
+		
+
+		while(!gameOver)
+		{
+			receiveMove() //waits for client
+			notfyAllAIs()
+		}			
+	}
+
+
+// When a unit is attacked check if the unit belonged to an AI, if so, set that AI's gettingAttacked flag
+
+struct Cluster
+{
+	public:
+		int yourStrength;
+		bool mine;		
+		double hpPercentage;
+		int bobsInCluster;
+}
+
+
+	AI
+	{
+		bool gettingAttacked;
+	
+		analyzeThis(Map tempMap) //do Map objects even have reference to where Bobs are located?
+		{
+			mode = getMode(tempMap);
+				
+			if(AIsTurn)
+				sendResultToServer();
+			else;
+		}	
+		
+		
+			for(int i=0; i<cluster.length; i++) 
+				for(int j=0; i<cluster[].length; j++)
+					if(mode == "offensive")
+					{
+						if(cluster[i][j].mine)//own cluster
+						{//attackWeakestPoint()
+							//collectively attack the nearest cluster
+						}
+						else if(!cluster[i][j].mine)
+						{
+							//keep fighting until you own the cluster (or die)
+						}	
+					}
+					else if(mode == "defensive")
+					{
+						if(cluster[i][j].mine)
+						{
+							//get to offensive
+						}
+						else if(!cluster[i][j].mine)
+						{
+							//retreat until an enemy doesn't control adjacent chunks
+						}	//heal?
+					}
+					
+		}	
+	
+		
+	
+		enum getMode(Map tempMap)
+		{
+			Cluster clusters [][] = new Cluster[tempMap.getLength()%5][tempMap.getHeight()%5];
+			int safety [][];
+			int myCompositeStrength = 0;
+			
+			int clusterStrength;
+			Tile * t;
+			Bob * b;
+			
+//***************initialize all bobsInCluster to 0
+			//*********base strength only on occuped clustere
+			bool myBobInCluster [][];
+			for(int m=0; m<tempMap.getLength()%5; m++)
+				for(int l=0; l<tempMap.getWidth()%5; l++){
+					myBobInCluster[m][n] = false;
+					clusters[m][n].bobsInCluster = 0;}
+			
+//**************determine strength of each cluster
+			for(int i=0; i<tempMap.getLength(); i++)
+			{
+				for(int j=0; j<tempMap.getWidth(); j++)
+				{
+					t=tempMap.getTile(i,j);
+					b=t->getBob();
+					if(bob belongs to current player){
+						cluster[i%5][j%5].yourStrength++; //does this matter anymore?
+						cluster[i%5][h%].bobsInCluster++;
+						cluster[i%5][j%5].hpPercentage += (double) b.getHP() / (double) b.getHPBase();
+						myBobInCluster[i%5][j%5] = true;
+						}
+					else if(b != null){
+						cluster[i%5][j%5].mine = false;	
+						cluster[i%5][j%5].yourStrength--;}
+				}
+			}
+//**************average all percentages to determine mode
+//**************sum all cluster strengths where I have a Bob
+			for(int m=0; m<tempMap.getLength()%5; m++)
+				for(int l=0; l<tempMap.getWidth()%5; l++)
+				{
+					cluster[m][n].hpPercentage = cluster[m][n].hpPercentage / cluster[m][m].bobsInCluster;
+					if(myBobInCluster[m][n])
+						myCompositeStrength += cluster[i%5][j%5].yourStrength; 
+				}
+			
+			
+			
+			
+			//evaluate safety value of cluster
+			
+			for(int m=0; m<cluster.length; m++)   //cycle through tiles
+				for(int n=0; n<cluster[].length; n++)
+					for(int i=-1; i<2; i++) //check all neighbors
+						for(int j=-1; j<2; j++)
+							if(i==0 && j==0)	continue;
+							else
+							{
+								try{
+									safety[m][n] = safety[m][n] + cluster[m+i][n+1].yourStrength;
+								}
+								catch(IndexOutOfBounds ioe) //not a valid location
+								{}						
+							}
+								
+		} //end getMode()
+	
+	
+	
+
+	notfyAllAIs(Map tempMap)
+	{
+		for(int aiNum=0; aiNum<numAIs; aiNum++)
+		{
+			AI[aiNum].analyzeThis(tempMap);	
+		}	
+	}
+	

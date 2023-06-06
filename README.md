@@ -34,7 +34,7 @@ To run the game to play
 ## When the game starts
 
 * You will be prompted to buy Bobs.
-** Click 'Buy Bob' and 'Done' after you have bought your Bob.
+  * Click 'Buy Bob' and 'Done' after you have bought your Bob.
 * Each Bob costs buy points and along with abilities for that bob.
 * Click 'Ready' when you are done buying all the Bobs.
 
